@@ -28,4 +28,5 @@ Thumbs.db
 *.seed
 .env
 .env.*
+!.env.example
 
