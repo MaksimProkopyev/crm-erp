@@ -47,7 +47,10 @@ class Migration(migrations.Migration):
                 ("number", models.CharField(blank=True, max_length=128)),
                 ("opened_at", models.DateField(blank=True, null=True)),
                 ("closed_at", models.DateField(blank=True, null=True)),
-                ("idempotency_key", models.CharField(blank=True, max_length=255, null=True, unique=True)),
+                (
+                    "idempotency_key",
+                    models.CharField(blank=True, db_index=True, max_length=255, null=True, unique=True),
+                ),
                 ("comment", models.TextField(blank=True)),
                 ("client", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name="cases", to="core.client")),
                 ("stage", models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to="core.casestage")),

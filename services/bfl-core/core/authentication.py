@@ -5,6 +5,14 @@ from django.contrib.auth.models import AnonymousUser
 from rest_framework import authentication, exceptions
 
 
+class APIKeyUser(AnonymousUser):
+    """Trivial user object that always counts as authenticated."""
+
+    @property
+    def is_authenticated(self) -> bool:  # pragma: no cover - simple property
+        return True
+
+
 class APIKeyAuthentication(authentication.BaseAuthentication):
     keyword = "Bearer"
 
@@ -25,4 +33,4 @@ class APIKeyAuthentication(authentication.BaseAuthentication):
         if not expected_token or token != expected_token:
             raise exceptions.AuthenticationFailed("Invalid API token")
 
-        return AnonymousUser(), None
+        return APIKeyUser(), None

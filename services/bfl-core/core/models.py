@@ -41,7 +41,13 @@ class Case(TimeStampedModel):
     stage = models.ForeignKey(CaseStage, null=True, blank=True, on_delete=models.SET_NULL)
     opened_at = models.DateField(null=True, blank=True)
     closed_at = models.DateField(null=True, blank=True)
-    idempotency_key = models.CharField(max_length=255, unique=True, null=True, blank=True)
+    idempotency_key = models.CharField(
+        max_length=255,
+        unique=True,
+        null=True,
+        blank=True,
+        db_index=True,
+    )
     comment = models.TextField(blank=True)
 
     def __str__(self) -> str:
